@@ -43,6 +43,6 @@ class Dataset(InMemoryDataset):
 
     def read_data(self):
 
-        # load initial embeddings for train
+        # load initial embeddings for train and construct graph for trained embeddings
         # ... ...
 
