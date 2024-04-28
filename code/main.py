@@ -10,11 +10,52 @@ from data_loader import Dataset
 from torch_geometric.data import DataLoader
 import generate_decoy
 
-
+""" Using evaluation metrics to test the effectiveness of decoy files """
 def get_hit_rate(decoy_file_name_list, mode):
 
-    # Using evaluation metrics to test the effectiveness of decoy files
-    # ... ...
+    if mode == 'test':
+        pkl = 'ransomware_file_reaction_dict_for_test_dict.pkl'
+    ransomware_file_dict = utils.load_dict(f'../data/{pkl}')
+
+    result_dict = {}
+
+    j = 0  # num of ransomware samples for testing
+    for ransomware, attacked_file_list in ransomware_file_dict.items():
+        hit_dict = {}
+        sub_dict = {}
+        attacked_file_list = list(attacked_file_list['file'])
+        for decoy_file in decoy_file_name_list:
+            i = 0
+            for file in attacked_file_list:
+                if decoy_file in file:
+                    hit_dict[f'{file}'] = i + 1
+                    break
+                else:
+                    i += 1
+        if len(hit_dict) != 0:
+            min_file_key = min(hit_dict, key=hit_dict.get)
+            min_value = hit_dict[min_file_key]
+            sub_dict['hit file'] = min_file_key
+            sub_dict['loss file count'] = min_value - 1
+            result_dict[f'{ransomware}'] = sub_dict
+        else:
+            sub_dict['hit file'] = ''
+            sub_dict['loss file count'] = 100
+            result_dict[f'{ransomware}'] = []
+        j += 1
+
+    hit_count_list = []  # average file loss list
+    miss_list = []  # undetected ransomware list
+    for key, value in result_dict.items():
+        try:
+            loss_file_count = value['loss file count']
+            hit_count_list.append(loss_file_count)
+        except Exception as e:
+            miss_list.append(key)
+
+    average_loss_count = sum(hit_count_list) / len(hit_count_list)
+
+    return result_dict, j, average_loss_count, miss_list
 
 
 
