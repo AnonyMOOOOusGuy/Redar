@@ -1,7 +1,7 @@
 
 ## Core code for paper  "Redar: Recommendation-guided Active Trapping for Ransomware"
 
-![framework.png](images%2Fframework.png)
+
 ## 1. Introduction to Project 
 This project is the core algorithmic code of component "Decoy File Generator" in paper "Recommendation-guided Active 
 Trapping for Ransomware" It mainly includes the following steps:
