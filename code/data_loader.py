@@ -8,7 +8,7 @@ import pandas as pd
 import os
 
 
-
+""" prepare initial embeddings and construct graph """
 class Dataset(InMemoryDataset):
     def __init__(self, root, dataset, rating_file, sep, args, transform=None, pre_transform=None):
 
@@ -23,8 +23,8 @@ class Dataset(InMemoryDataset):
         self.stat_info = torch.load(self.processed_paths[1])
         self.data_num = self.stat_info['data_num']
         self.attr_num = self.stat_info['attr_num']
+        # other parameters ...
 
-    
 
     def process(self):
 
