@@ -19,30 +19,7 @@ def get_hit_rate(decoy_file_name_list, mode):
 
     result_dict = {}
 
-    j = 0  # num of ransomware samples for testing
-    for ransomware, attacked_file_list in ransomware_file_dict.items():
-        hit_dict = {}
-        sub_dict = {}
-        attacked_file_list = list(attacked_file_list['file'])
-        for decoy_file in decoy_file_name_list:
-            i = 0
-            for file in attacked_file_list:
-                if decoy_file in file:
-                    hit_dict[f'{file}'] = i + 1
-                    break
-                else:
-                    i += 1
-        if len(hit_dict) != 0:
-            min_file_key = min(hit_dict, key=hit_dict.get)
-            min_value = hit_dict[min_file_key]
-            sub_dict['hit file'] = min_file_key
-            sub_dict['loss file count'] = min_value - 1
-            result_dict[f'{ransomware}'] = sub_dict
-        else:
-            sub_dict['hit file'] = ''
-            sub_dict['loss file count'] = 100
-            result_dict[f'{ransomware}'] = []
-        j += 1
+    # certain method to get detection rate ... ...
 
     hit_count_list = []  # average file loss list
     miss_list = []  # undetected ransomware list
