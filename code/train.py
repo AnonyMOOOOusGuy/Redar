@@ -24,7 +24,3 @@ def evaluate(model, data_loader, device):
     # evaluate the prediction result ... ...
 
 
-def cal_ndcg(predicts, labels, user_ids, k):
-
-    # calculate NDGC index
-    # ... ...
