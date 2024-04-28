@@ -11,5 +11,4 @@ To make the project work well ,you may need third party Python dependencies as b
 * pandas
 * sklearn
 
-## 2. 
 
