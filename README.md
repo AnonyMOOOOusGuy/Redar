@@ -22,39 +22,3 @@ To make the project work well ,you may need third party Python dependencies as b
 * pandas
 * sklearn
 
-## 3. Project files
-For copyright reasons the presented project only contains the code of Decoy File Generation 
-component, which contains eight files show the core part of the codes. Here is an overview 
-of the main features of each file below:
-### 3.1 main.py
-   Here is the main entry point for program execution, including defining model training parameters, 
-   processing the entry of embedded vector data collected from user file attributes and ransomware samples, 
-   the entry for training Redar to learn interaction relationship models, 
-   the entry for training Redar to learn attribute weights, 
-    the entry for decoy file generation functionality, 
-   and the entry for testing the efficiency of decoy file detection.
-   
-### 3.2 data_loader.py
-Here, we obtain the initial embedding vectors of ransomware samples and user file attributes from the dataset, 
-forming them into two graph representations: the user file attribute graph and the ransomware sample graph.
-
-### 3.3 train.py
-Here, the interaction information learning is conducted between the user file attribute graph generated in 
-data_loader.py and the ransomware sample graph. Three types of interaction information are learned here: 
-internal interaction information of user file attributes, aimed at enabling Redar to learn correlation information
-between file attributes; internal interaction information of ransomware samples, aimed at enabling Redar to learn 
-correlation information between ransomware samples; and interaction information between ransomware samples and file
-attributes, aimed at enabling Redar to learn preference information when ransomware samples encrypt files. The final
-ransomware sample embedding representation and file attribute embedding representation obtained in this step contain
-new embedding vectors that include the above three types of information.
-
-### 3.3 model.py
-This section specifically defines the training process in train.py, which continuously adjusts the parameters in GNN to 
-ensure that the resulting embedding vectors for ransomware samples and user file attributes contain sufficient 
-representations of the three types of interaction information mentioned in Section 3.3.
-
-### 3.4 weight_method.py
-This section defines a linear model to learn the weights of different types of file attributes in determining the 
-attributes that decoy files should possess, i.e., the overall attention of ransomware samples to each type of user file 
-attribute. The input to this section is the embedding vectors of ransomware samples obtained in Section 3.3 and the 
-embedding vectors of user file attributes. The output is a list of weights for each type of user file attribute.
